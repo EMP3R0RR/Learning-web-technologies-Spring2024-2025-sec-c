@@ -1,0 +1,39 @@
+<html>
+    <Head>
+       <title></title>
+    </Head>
+    <body>
+        <h2>Name</h2>
+        <input type="text" id="name" placeholder="Enter your name"> 
+        <button onclick="validate()" type="submit">Submit</button>
+        <p id="msg"style="color: brown;"> make sure to enter your name properly</p>
+
+        <script>
+            function validate(){
+                let name = document.getElementById('name').value;
+                let msg =document.getElementById('msg')
+
+                if(name===""){
+                    msg.innerHTML="Please enter your name";
+                    return;
+                }
+                else if (!name.includes(" ")) {
+                    msg.innerHTML = "Name must have at least two words";
+                    return;
+                }
+                else if (!/^[a-zA-Z .-]+$/.test(name)) {
+                msg.innerHTML = " can only contain letters, dots , dashes , and spaces!";
+                return;
+                }
+                else if (!/^[a-zA-Z]/.test(name)) {
+                msg.innerHTML = "Name must start with a letter!";
+                return;
+                }
+                msg.innerHTML= "Name is valid"
+                msg.style.color = "green";
+                alert("Form submitted successfully!");
+            }
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+    <title>Date of Birth Validation</title>
+    <style>
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        .input-container input {
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Date of Birth</h2>
+    <div class="input-container">
+        <input type="number" id="day" placeholder="DD" min="1" max="31">
+        <input type="number" id="month" placeholder="MM" min="1" max="12">
+        <input type="number" id="year" placeholder="YYYY" min="1900" max="2016">
+    </div>
+    <button onclick="validateForm()">Submit</button>
+
+    <p id="error-message" style="color: red;"></p>
+
+    <script>
+        function validateForm() {
+            const day = document.getElementById('day').value;
+            const month = document.getElementById('month').value;
+            const year = document.getElementById('year').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            errorMessage.textContent = "";
+
+            if (!day || !month || !year) {
+                errorMessage.textContent = "All fields are required.";
+                return;
+            }
+            if (isNaN(day) || isNaN(month) || isNaN(year)) {
+                errorMessage.textContent = "Please enter valid numbers.";
+                return;
+            }
+            if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900 || year > 2016) {
+                errorMessage.textContent = "Invalid date. Please check the ranges (DD: 1-31, MM: 1-12, YYYY: 1900-2016).";
+                return;
+            }
+            alert("Form submitted successfully!");
+        }
+    </script>
+    
+</body>
+</html>
