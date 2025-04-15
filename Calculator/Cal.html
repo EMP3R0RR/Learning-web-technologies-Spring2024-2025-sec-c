@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Calculator</title>
+</head>
+<body>
+ 
+<h2> Cal</h2>
+ 
+<input type="text" id="display" disabled>
+<br><br>
+ 
+<button value="7">7</button>
+<button value="8">8</button>
+<button value="9">9</button>
+<button value="/">÷</button>
+<br>
+ 
+<button value="4">4</button>
+<button value="5">5</button>
+<button value="6">6</button>
+<button value="*">*</button>
+<br>
+ 
+<button value="1">1</button>
+<button value="2">2</button>
+<button value="3">3</button>
+<button value="-">-</button>
+<br>
+ 
+<button value="0">0</button>
+<button value=".">.</button>
+<button value="%">℅</button>
+<button value="+">+</button>
+<br><br>
+ 
+<button id="clear">Clear</button>
+<button id="equals">=</button>
+ 
+<script>
+    var display = document.getElementById('display');
+    var buttons = document.querySelectorAll('button');
+ 
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var value = this.value;
+ 
+if (this.id === 'equals') {
+                calculate();
+} else if (this.id === 'clear') {
+                clearDisplay();
+            } else {
+                insert(value);
+            }
+        });
+    });
+ 
+    function insert(value) {
+        display.value += value;
+    }
+ 
+    function clearDisplay() {
+        display.value = '';
+    }
+ 
+    function calculate() {
+        var expression = display.value;
+ 
+        
+        var operators = ['+', '-', '*', '/', '%'];
+        var operatorFound = null;
+        var num1, num2, result;
+ 
+        for (var i = 0; i < operators.length; i++) {
+            var op = operators[i];
+            if (expression.indexOf(op) > -1) {
+                operatorFound = op;
+                break;
+            }
+        }
+ 
+        if (operatorFound !== null) {
+            var parts = expression.split(operatorFound);
+ 
+            //Check if the user entered two valid numbers
+            if (parts.length === 2) {
+               num1 = parseFloat(parts[0]);
+                num2 = parseFloat(parts[1]);
+ 
+                if (!isNaN(num1) && !isNaN(num2)) {
+                    if (operatorFound === '+') result = num1 + num2;
+                    if (operatorFound === '-') result = num1 - num2;
+                    if (operatorFound === '*') result = num1 * num2;
+                    if (operatorFound === '/') result = num2 !== 0 ? num1 / num2 : 'Error';
+                    if (operatorFound === '%') result = (num1 / 100) * num2;
+ 
+                    display.value = result;
+                } else {
+                    display.value = 'Invalid';
+                }
+            } else {
+                display.value = 'Invalid';
+            }
+        } else {
+            display.value = 'Invalid';
+        }
+    }
+</script>
+ 
+</body>
+</html>
