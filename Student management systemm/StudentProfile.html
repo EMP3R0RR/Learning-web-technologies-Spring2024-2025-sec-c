@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Profile</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .profile-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2rem;
+    }
+  
+    .profile-pic-section {
+      flex: 0 0 300px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+  
+    .profile-pic-container {
+      width: 250px;
+      height: 250px;
+      overflow: hidden;
+      position: relative;
+      border: 3px solid #0066cc;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+  
+    .profile-pic-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  
+    .profile-pic-container .overlay {
+      position: absolute;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      display: none;
+      cursor: pointer;
+    }
+  
+    .profile-pic-container:hover .overlay {
+      display: block;
+    }
+  
+    .form-container {
+      flex: 1;
+      max-width: 600px;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .form-container label,
+    .form-container input {
+      margin-bottom: 1rem;
+      width: 100%;
+      font-size: 1rem;
+    }
+  
+    button {
+      margin-top: 1rem;
+      padding: 10px;
+      background-color: #0066cc;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  
+    button:hover {
+      background-color: #004999;
+    }
+  
+    .bio-section {
+      width: 100%;
+      background-color: #f7f7f7;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+  
+    .bio-section h2 {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+  
+    .bio-section textarea {
+      width: 100%;
+      font-size: 1rem;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: none;
+      min-height: 120px;
+    }
+    .PP{
+      padding: 15px;
+      
+    }
+  
+    table.rowsandcoms {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+  
+    table.rowsandcoms th,
+    table.rowsandcoms td {
+      padding: 15px 20px;
+      text-align: center;
+      vertical-align: middle;
+      border-bottom: 1px solid #ddd;
+      font-size: 16px;
+      color: #333;
+    }
+  
+    table.rowsandcoms thead {
+      background-color: #f0f0f0;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  
+    table.rowsandcoms tr:last-child td {
+      border-bottom: none;
+    }
+  </style>
+  
+</head>
+<body>
+  <header>
+    <h1>Your Profile</h1>
+    
+  </header>
+
+  <div class="profile-wrapper">
+      <!-- profile Pic -->
+    <div class="profile-pic-section">
+      <h2> Profile Picture</h2>
+      <div class="profile-pic-container">
+        <img src="" alt="" />
+        <h2> Profile Picture</h2>
+        <input type="file" id="profileUpload" accept="image/*" />
+        
+      </div>
+      <input type="file" id="profileUpload" accept="image/*" />
+      <div class="bio-section">
+        <h2>Bio</h2>
+        <textarea id="bio" placeholder="Write a short bio..." rows="5"></textarea>
+        <button id="updateBioButton">Update Bio</button>
+      </div>
+    </div>
+
+    <!-- profile -->
+    <div id= "profile" class="form-container">
+      <h2 class="PP">Your Information</h2>
+      <form>
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" value="" />
+
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" value="" />
+
+        <label for="email">E-mail</label>
+        <input type="email" id="email" value="" />
+
+        <label for="ID">ID</label>
+        <input type="number" id="ID" value="" />
+
+        <label for="age">Age</label>
+        <input type="number" id="age" value="" />
+
+        <label for="bloodgroup">Blood Group</label>
+        <input type="text" id="bg" value="" />
+
+        <label for="address">Address</label>
+        <input type="text" id="address" value="" />
+
+        <label for="number">Number</label>
+        <input type="number" id="number" value="" />
+
+        <button id="updateProfileButton">Update Profile</button>
+      </form>
+    </div>
+    
+
+  </div>
+  
+<script>
+  const updateProfileButton = document.getElementById('updateProfileButton');
+    const editFName = document.getElementById('firstname');
+    const editLName = document.getElementById('lastname');
+    const editEmail = document.getElementById('email');
+    const editID = document.getElementById('ID');
+    const editBG = document.getElementById('bg');
+    const editAddress = document.getElementById('address');
+    const editPhone = document.getElementById('number');
+
+   
+    updateProfileButton.addEventListener('click', function() {
+      
+      const newFName = editFName.value.trim();
+      const newLName = editLName.value.trim();
+      const newEmail = editEmail.value.trim();
+      const newID = editID.value.trim();
+      const newBG = editBG.value.trim();
+      const newAddress = editAddress.value.trim();
+      const newPhone = editPhone.value.trim();
+
+      
+      if (newFName && newLName && newEmail && newID && newBG && newAddress && newPhone) {
+        
+        editFName.textContent = newFName;
+        editLName.textContent = newLName;
+        editEmail.textContent = newEmail;
+        editID.textContent = newID;
+        editBG.textContent = newBG;
+        editAddress.textContent = newAddress;
+        editPhone.textContent = newPhone;
+
+        
+
+        alert('Profile updated successfully!');
+      } else {
+        alert('Please fill in all fields.');
+      }
+    });
+
+   window.onload = function() {
+    const bio = localStorage.getItem('bio');
+    if (bio) {
+      document.getElementById('bio').value = bio;
+    }
+  };
+
+ 
+  document.getElementById('updateBioButton').addEventListener('click', function() {
+    const newBio = document.getElementById('bio').value;
+    if (newBio) {
+      localStorage.setItem('bio', newBio); 
+      alert('Bio updated!');
+    } else {
+      alert('Please enter a bio.');
+    }
+  });
+
+  //function showDiv() {
+    // Hide both divs
+    //document.getElementById('profile').style.display = 'none';
+    //document.getElementById('grades').style.display = 'none';
+
+    // Show only the one requested
+   // document.getElementById('grades').style.display = 'block';
+  //}
+</script>
+</body>
+</html>

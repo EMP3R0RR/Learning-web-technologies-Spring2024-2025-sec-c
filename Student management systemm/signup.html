@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .page-layout {
+      display: flex;
+      gap: 30px;
+    }
+
+    .suform-container, .side-container {
+      background-color: white;
+      width: 420px;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      overflow-y: auto;
+      max-height: 90vh;
+      
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .row-fields {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .field {
+      width: 100%;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+
+    .info-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .info-section h3 {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    .info-section ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .info-section li {
+      margin-bottom: 8px;
+      font-size: 0.95em;
+      color: #555;
+    }
+
+    .suform-container::-webkit-scrollbar,
+    .side-container::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .suform-container::-webkit-scrollbar-thumb,
+    .side-container::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-layout">
+  <!-- Sign Up Form -->
+  <div class="suform-container" id="signup">
+    <h2>Sign Up</h2>
+    <form id="signupForm">
+      <div class="error" id="errorMsg"></div>
+
+      <label for="fname">First Name</label>
+      <input type="text" id="fname" required />
+
+      <label for="lname">Last Name</label>
+      <input type="text" id="lname" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+
+      <label for="age">Age</label>
+      <input type="number" id="age" required />
+
+      <div class="row-fields">
+        <div class="field">
+          <label for="bloodGroup"><strong>Blood Group</strong></label>
+          <select id="bloodGroup" required>
+            <option value="">Select</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="department"><strong>Department</strong></label>
+          <select id="department" required>
+            <option value="">Select</option>
+            <option value="CSE">CSE</option>
+            <option value="BBA">BBA</option>
+            <option value="EEE">EEE</option>
+            <option value="ENGLISH">ENGLISH</option>
+            <option value="DATA SCIENCE">DS</option>
+            <option value="LLB">LLB</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="address">Address</label>
+      <input type="text" id="address" required />
+
+      <label for="password">Password</label>
+      <input type="text" id="password" required />
+
+      <label for="confirm">Confirm Password</label>
+      <input type="text" id="confirm" required />
+      
+
+      <button type="submit" onclick="">Sign Up</button>
+    </form>
+  </div>
+
+  <!-- Info Panel (Optional) -->
+  <div class="side-container">
+    <div class="info-container" id="signup-info">
+      <h2>Why Sign Up?</h2>
+      <div class="info-section">
+        <h3>🎓 Create Your Academic Profile</h3>
+        <ul>
+          <li>Track your academic history and performance.</li>
+          <li>Join classes and access materials.</li>
+        </ul>
+      </div>
+      <div class="info-section">
+        <h3>📋 Secure Enrollment</h3>
+        <ul>
+          <li>Verified identity for smooth communication.</li>
+          <li>Role-specific features tailored to your needs.</li>
+        </ul>
+      </div>
+      <div class="info-section">
+        <h3>💡 Personalized Experience</h3>
+        <ul>
+          <li>Custom notifications and reminders.</li>
+          <li>Access to grades, attendance, and reports.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function validation(){
+
+    document.getElementById("signupForm").addEventListener("submit", function (e) {
+    e.preventDefault(); 
+
+    // Get all input values
+    const fname = document.getElementById("fname").value.trim();
+    const lname = document.getElementById("lname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const age = document.getElementById("age").value.trim();
+    const bloodGroup = document.getElementById("bloodGroup").value;
+    const department = document.getElementById("department").value;
+    const address = document.getElementById("address").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirm = document.getElementById("confirm").value.trim();
+
+    const errorMsg = document.getElementById("errorMsg");
+    errorMsg.textContent = ""; 
+
+    
+    if (
+      !fname || !lname || !email || !age || !bloodGroup || !department ||
+      !address || !password || !confirm
+    ) {
+      errorMsg.textContent = "Please fill out all fields.";
+      return;
+    }
+
+    
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    if (!emailPattern.test(email)) {
+      errorMsg.textContent = "Please enter a valid email address.";
+      return;
+    }
+
+    
+    if (password !== confirm) {
+      errorMsg.textContent = "Passwords do not match.";
+      return;
+    }
+
+    
+    alert("Signup successful!");
+    window.location.href = "login.html";
+  });
+
+  
+  }
+
+  
+</script>
+
+  
+
+</body>
+</html>

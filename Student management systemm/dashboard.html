@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(to right, #e0ecff, #f3f9ff);
+    }
+
+    header {
+      width: 100%;
+      height: 85px;
+      background-color: #004080;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: white;
+      cursor: default;
+    }
+
+    .header-center {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .search-bar input[type="text"] {
+      padding: 0.5rem;
+      border-radius: 4px;
+      border: none;
+      width: 250px;
+    }
+
+    .search-bar button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #ffffff;
+      color: #004080;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .search-bar button:hover {
+      background-color: #cce0ff;
+    }
+
+    .header-right button {
+      margin-left: 1rem;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background-color: #ffffff;
+      color: #004080;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .header-right button:hover {
+      background-color: #cce0ff;
+    }
+
+    .dashboard {
+      flex: 1;
+      display: flex;
+      height: calc(100% - 60px);
+    }
+
+    .sidediv {
+      width: 250px;
+      background-color: #003366;
+      color: white;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .sidediv button {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #004080;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .sidediv button:hover {
+      background-color: #0059b3;
+      transform: translateX(10px);
+    }
+
+    .maindiv {
+      flex: 1;
+      padding: 2rem;
+      background-color: #ffffff;
+      overflow-y: auto;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+    <div class="header-left">
+      <h1>Welcome to the Dashboard</h1>
+    </div>
+
+    <div class="header-center">
+      <div class="search-bar" id="searchBarContainer">
+        <input type="text" id="dashboardSearch" placeholder="Search..." />
+        <button id="searchButton">Search</button>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <button id="notificationBtn">🔔 Notifications</button>
+      <button id="logoutBtn" onclick=logout() >Logout</button>
+    </div>
+  </header>
+
+  <div class="dashboard">
+    <!-- Left Side (Sidebar with Buttons) -->
+    <div class="sidediv">
+      <button id="profilebtn">Profile</button>
+      <button id="Gradesbtn">Grades</button>
+      <button id="Registrationbtn">Registration</button>
+      <button id="Paymentbtn">Payment</button>
+    </div>
+
+    <!-- Right Side (Main Content) -->
+    <div class="maindiv" id="mainContent">
+      <!-- Dynamic content will load here -->
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+  const role = sessionStorage.getItem("userRole") || "student"; // default fallback
+
+  const sidebar = document.querySelector(".sidediv");
+  const mainContent = document.getElementById("mainContent");
+
+  sidebar.innerHTML = ""; // clear existing buttons
+
+  function loadPage(url) {
+    fetch(url)
+      .then(response => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.text();
+      })
+      .then(data => {
+        mainContent.innerHTML = data;
+      })
+      .catch(error => {
+        console.error("Fetch error:", error);
+      });
+  }
+
+  if (role === "student") {
+    sidebar.innerHTML = `
+      <button id="profilebtn">Profile</button>
+      <button id="Gradesbtn">Grades</button>
+      <button id="Registrationbtn">Registration</button>
+      <button id="Paymentbtn">Payment</button>
+    `;
+    loadPage("StudentProfile.html");
+  } else if (role === "teacher") {
+    sidebar.innerHTML = `
+      <button id="profilebtn">Profile</button>
+      <button id="StudentListbtn">Students</button>
+      <button id="GradesAssignbtn">Assign Grades</button>
+    `;
+    loadPage("TeacherProfile.html");
+  } else if (role === "admin") {
+    sidebar.innerHTML = `
+      <button id="UserMgmtbtn">User Management</button>
+      <button id="SystemLogsbtn">System Logs</button>
+      <button id="Reportsbtn">Reports</button>
+    `;
+    loadPage("AdminDashboard.html");
+  }
+
+  // Attached event listeners dynamically
+  sidebar.addEventListener("click", function (e) {
+    if (e.target.tagName === "BUTTON") {
+      const btnId = e.target.id;
+      if (btnId === "profilebtn") loadPage(role === "teacher" ? "TeacherProfile.html" : "StudentProfile.html");
+      else if (btnId === "Gradesbtn") loadPage("grades.html");
+      else if (btnId === "Registrationbtn") loadPage("courses.html");
+      else if (btnId === "Paymentbtn") loadPage("fees.html");
+      else if (btnId === "StudentListbtn") loadPage("StudentList.html");
+      else if (btnId === "GradesAssignbtn") loadPage("AssignGrades.html");
+      else if (btnId === "UserMgmtbtn") loadPage("UserManagement.html");
+      else if (btnId === "SystemLogsbtn") loadPage("Logs.html");
+      else if (btnId === "Reportsbtn") loadPage("Reports.html");
+    }
+  });
+});
+
+function logout(){
+  window.location.href = "landingpage.html";
+}
+
+
+  </script>
+
+</body>
+</html>

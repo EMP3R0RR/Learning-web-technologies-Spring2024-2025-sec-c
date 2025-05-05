@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Reusing your existing style */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0ecff, #f3f9ff);
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #f9f9fa;
+    }
+
+    .aucontainer {
+      display: flex;
+      align-items: center;
+      background-color: #ffffff;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-box {
+      width: 200px;
+      height: 200px;
+      background-color: #cce0ff;
+      border-radius: 10px;
+      background-size: cover;
+      background-position: center;
+      flex-shrink: 0;
+      margin-right: 2rem;
+    }
+
+    .text-content {
+      flex: 1;
+      color: #333;
+    }
+
+    /* Special background for first container */
+    .university-info .image-box {
+      background-image: url('your-university-image.jpg'); /* Set later */
+    }
+    .aucontainer:hover {
+     filter: brightness(1.02);
+     transform: translateY(-5px);
+     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+  </style>
+</head>
+
+<body>
+
+  
+
+  <main class="as">
+    <header>
+        <h1>About Us</h1>
+        </header>
+    <!-- University Info Container -->
+    <div class="aucontainer university-info">
+      <div class="image-box"></div>
+      <div class="text-content">
+        <h2>Our University</h2>
+        <p>Welcome to our prestigious university where education meets excellence. 
+        We offer a variety of courses designed to empower students and build bright futures.</p>
+      </div>
+    </div>
+
+    <!-- Profile 1 -->
+    <div class="aucontainer">
+      <div class="image-box" style="background-image: url('profile1.jpg');"></div>
+      <div class="text-content">
+        <h2></h2>
+        <p></p>
+      </div>
+    </div>
+
+    <!-- Profile 2 -->
+    <div class="aucontainer">
+      <div class="image-box" style="background-image: url('profile2.jpg');"></div>
+      <div class="text-content">
+        <h2></h2>
+        <p></p>
+      </div>
+    </div>
+
+    <!-- Profile 3 -->
+    <div class="aucontainer">
+      <div class="image-box" style="background-image: url('profile3.jpg');"></div>
+      <div class="text-content">
+        <h2></h2>
+        <p></p>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>

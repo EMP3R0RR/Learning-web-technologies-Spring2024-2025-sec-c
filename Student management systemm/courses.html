@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Courses</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <style>
+    table.rowsandcoms {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table.rowsandcoms th,
+    table.rowsandcoms td {
+      padding: 15px 20px;
+      text-align: center;
+      vertical-align: middle;
+      border-bottom: 1px solid #ddd;
+      font-size: 16px;
+      color: #333;
+    }
+
+    table.rowsandcoms thead {
+      background-color: #f0f0f0;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    table.rowsandcoms tr:last-child td {
+      border-bottom: none;
+    }
+  </style>
+
+  <header>
+    <h1>Courses</h1>
+    
+  </header>
+
+  <main class="form-container">
+    <h2>Available Courses</h2>
+    <table class="rowsandcoms" id="courses-table">
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Duration</th><th>Details</th><th>Fees</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        <!-- Dynamic rows will be inserted here -->
+      </tbody>
+    </table>
+
+    <div class="bottom-buttons" style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem;">
+      <button onclick="showNotification()">Done</button>
+      <button onclick="refreshCourses()">Refresh</button>
+      
+    </div>
+
+    <div class="notification" id="notification" style="display:none; position: fixed; top: 30%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 2rem; border-radius: 10px; box-shadow: 0 0 12px rgba(0,0,0,0.2); z-index: 999;">
+      <p>Are you sure you want to complete registration?</p>
+      <button onclick="confirmRegistration(true)">Yes</button>
+      <button onclick="confirmRegistration(false)">No</button>
+    </div>
+  </main>
+
+  <script>
+    const coursesTableBody = document.querySelector('#courses-table tbody');
+    const notificationBox = document.getElementById('notification');
+    const selectedCourses = new Set();
+
+    let courses = [
+      { id: 1114, name: 'Mathematics 101', duration: '3 months', details: 'Basic Algebra and Geometry', fees: '₹1500' },
+      { id: 1220, name: 'Physics Fundamentals', duration: '4 months', details: 'Mechanics and Thermodynamics', fees: '₹1800' },
+      { id: 1302, name: 'Intro to Web Dev', duration: '6 months', details: 'HTML, CSS, JavaScript', fees: '₹2500' }
+    ];
+
+    function renderCourses() {
+      coursesTableBody.innerHTML = '';
+      courses.forEach(course => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${course.id}</td>
+          <td>${course.name}</td>
+          <td>${course.duration}</td>
+          <td>${course.details}</td>
+          <td>${course.fees}</td>
+          <td>
+            <button onclick="takeCourse(${course.id})">Take</button>
+            <button onclick="removeCourse(${course.id})" style="background-color:#b30000; color:white;">Remove</button>
+          </td>
+        `;
+        coursesTableBody.appendChild(row);
+      });
+    }
+
+    function takeCourse(id) {
+      selectedCourses.add(id);
+      alert(`Course ${id} added.`);
+    }
+
+    function removeCourse(id) {
+      selectedCourses.delete(id);
+      alert(`Course ${id} removed.`);
+    }
+
+    function showNotification() {
+      notificationBox.style.display = 'block';
+    }
+
+    function confirmRegistration(confirm) {
+      notificationBox.style.display = 'none';
+      if (confirm) {
+        alert(`Registration completed for courses: ${[...selectedCourses].join(', ')}`);
+        selectedCourses.clear();
+      } else {
+        alert('Selection cancelled.');
+      }
+    }
+
+    function refreshCourses() {
+      const newId = Math.floor(1000 + Math.random() * 9000);
+      courses.push({ id: newId, name: `New Course ${newId}`, duration: '2 months', details: 'Added by Admin', fees: '₹999' });
+      renderCourses();
+    }
+
+   
+
+    renderCourses();
+  </script>
+</body>
+</html>

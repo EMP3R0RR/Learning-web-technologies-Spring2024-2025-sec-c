@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Grades</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    table.rowsandcoms {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    table.rowsandcoms th,
+    table.rowsandcoms td {
+      padding: 15px 20px;
+      text-align: center;
+      vertical-align: middle;
+      border-bottom: 1px solid #ddd;
+      font-size: 16px;
+      color: #333;
+    }
+
+    table.rowsandcoms thead {
+      background-color: #f0f0f0;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    table.rowsandcoms tr:last-child td {
+      border-bottom: none;
+    }
+
+    .total-container {
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+      font-size: 18px;
+      font-weight: 500;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Grades</h1>
+  </header>
+
+  <main class="form-container">
+    <h2>Subject-wise Grades</h2>
+    <table class="rowsandcoms" id="gradesTable">
+      <thead>
+        <tr><th>Subject</th><th>Marks</th><th>GPA</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Mathematics</td><td>88</td><td>3.8</td></tr>
+        <tr><td>Physics</td><td>92</td><td>4.0</td></tr>
+        <tr><td>English</td><td>75</td><td>3.0</td></tr>
+        <tr><td>Chemistry</td><td>85</td><td>3.6</td></tr>
+        <tr><td>Computer Science</td><td>94</td><td>4.0</td></tr>
+        <tr><td>Biology</td><td>78</td><td>3.2</td></tr>
+        <tr><td>Economics</td><td>81</td><td>3.4</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Total GPA and Marks Section -->
+    <div class="total-container" id="totalContainer">
+      Total Average Marks: <span id="avgMarks">0</span><br>
+      Total Average GPA: <span id="avgGPA">0</span>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      function calculateTotals() {
+        const table = document.getElementById("gradesTable").getElementsByTagName("tbody")[0];
+        const rows = table.getElementsByTagName("tr");
+  
+        let totalMarks = 0;
+        let totalGPA = 0;
+        let count = rows.length;
+  
+        for (let i = 0; i < count; i++) {
+          const cells = rows[i].getElementsByTagName("td");
+          totalMarks += parseFloat(cells[1].textContent);
+          totalGPA += parseFloat(cells[2].textContent);
+        }
+  
+        const avgMarks = (totalMarks / count).toFixed(2);
+        const avgGPA = (totalGPA / count).toFixed(2);
+  
+        document.getElementById("avgMarks").textContent = avgMarks;
+        document.getElementById("avgGPA").textContent = avgGPA;
+      }
+  
+      // Run after DOM is ready
+      calculateTotals();
+    });
+  </script>
+  
+</body>
+</html>
